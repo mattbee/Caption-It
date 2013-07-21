@@ -56,6 +56,9 @@ javascript:(function(e,a,g,h,f,c,b,d){if(!(f=e.jQuery)||g>f.fn.jquery||h(f)){
 	myCSS 		+=	"resize: none;";
 	myCSS 		+=	"outline: 1px dotted;";
 	myCSS 		+=	"}"
+	myCSS		+=	"body .captionit-save {";
+	myCSS		+=	"background: #f00; color: #000; font-size: 10px; font-family: impact, sans-serif; display: inline-block; padding: 4px; z-index: 99";
+	myCSS		+=	"}";
 
 	// And insert it into the DOM please.
 	ciStyleNode = document.createElement('style');
@@ -72,8 +75,8 @@ javascript:(function(e,a,g,h,f,c,b,d){if(!(f=e.jQuery)||g>f.fn.jquery||h(f)){
 	textBottom.rows = "1";
 
 	// Stick them in
-	var textTop = document.getElementsByTagName('body')[0].appendChild(textTop);
-	var textBottom = document.getElementsByTagName('body')[0].appendChild(textBottom);
+	var textTop = document.body.appendChild(textTop);
+	var textBottom = document.body.appendChild(textBottom);
 
 	// Position them both top and bottom of image respectively.
 	$(textTop).width(imageWidth - 2).offset({ top: pos.top, left: pos.left });
@@ -87,6 +90,26 @@ javascript:(function(e,a,g,h,f,c,b,d){if(!(f=e.jQuery)||g>f.fn.jquery||h(f)){
 		// }
 	//});
 
+
+	// We should allow the user to save their masterpiece!!
+	// Shove in a Save button to ping to Caption.it
+	// Pass through the image source, image w, image h, top text and bottom text.
+	// Send user to Caption.it to save their image.
+	var saveLink = document.createElement('a');
+
+	// TODO - move this to a visible server...
+	saveLink.href = 'http://localhost/internal/bookmarklet/meme.php?src='+image+'&w='+imageWidth+'&h='+imageHeight;
+	saveLink.className = 'captionit-save';
+	saveLink.innerHTML = 'Save Me';
+	$(saveLink).appendTo('body').offset({ top: pos.top + imageHeight, left: pos.left });
+
+	// When Save me is clicked, we assume sometext has been entered into the fields, so grab that.
+	$(saveLink).click(function() {
+		saveLink.href = saveLink.href + '&textTop='+textTop.value+'&textBottom='+textBottom.value;
+	})
+
+	// TODO is Save all the images in a library...
+	// This is a next step on caption.it...
 
 
 });
