@@ -30,20 +30,41 @@
 	var canvas = document.getElementById('meme');
 	canvas.height = <?php echo $_GET['h']; ?>;
 	canvas.width = <?php echo $_GET['w']; ?>;
+	textPosition = <?php echo $_GET['w']; ?> / 2;
 
 	var context = canvas.getContext('2d');
+
 	var imageObj = new Image();
 
 	imageObj.onload = function() {
-		//context.drawImage(imageObj, 0, 0);
+		context.drawImage(imageObj, 0, 0);
+
+		context.font = "50px Impact";
+		context.lineWidth = '5';
+		context.strokeStyle = 'white';
+		context.textBaseline = "top";
+		context.textAlign = "center";
+
+		context.strokeText("<?php echo $_GET['textTop']; ?>".toUpperCase(), textPosition, 10);
+		context.fillText("<?php echo $_GET['textTop']; ?>".toUpperCase(), textPosition, 10);
+
+		//context.textBaseline = "baseline";
+
+		context.strokeText("<?php echo $_GET['textBottom']; ?>".toUpperCase(), textPosition, <?php echo $_GET['h']; ?> - 60);
+		context.fillText("<?php echo $_GET['textBottom']; ?>".toUpperCase(), textPosition, <?php echo $_GET['h']; ?> - 60);
 	};
-	imageObj.src = '<?php echo $_GET['src']; ?>';
+	imageObj.src = 'http://localhost/internal/image.php?<?php echo $_GET['src']; ?>';
 
-	context.font = "40px Impact";
-	context.textBaseline = "bottom";
-	//context.textAlign = "center";
 
-	context.fillText("<?php echo $_GET['textTop']; ?>", 0, 60);
+
+	// save canvas image as data url (png format by default)
+	var dataURL = canvas.toDataURL();
+
+	// set canvasImg image src to dataURL
+	// so it can be saved as an image
+	document.getElementById('canvasImg').src = dataURL;
+	
+	
 
 	</script>
 

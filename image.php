@@ -17,8 +17,18 @@
 <body>
 
 
-<iframe src="<?php echo $_GET['src']; ?>" width="<?php echo $_GET['w']; ?>" height="<?php echo $_GET['h']; ?>"></iframe>
+<!-- <iframe src="<?php echo $_GET['src']; ?>" width="<?php echo $_GET['w']; ?>" height="<?php echo $_GET['h']; ?>"></iframe>
+ -->
+<?php
 
+$jpeg_image = imagecreatefromjpeg( $_GET['src'] );
+
+header('Content-Type: image/jpeg');
+
+imagejpeg($jpeg_image);
+imagedestroy($jpeg_image);
+
+?>
 
 
 </body>
