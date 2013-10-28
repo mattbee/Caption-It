@@ -36,6 +36,8 @@
 
 	var imageObj = new Image();
 
+	// Try https://developer.mozilla.org/en-US/docs/Code_snippets/Canvas
+
 	imageObj.onload = function() {
 		context.drawImage(imageObj, 0, 0);
 
@@ -53,7 +55,7 @@
 		context.strokeText("<?php echo $_GET['textBottom']; ?>".toUpperCase(), textPosition, <?php echo $_GET['h']; ?> - 60);
 		context.fillText("<?php echo $_GET['textBottom']; ?>".toUpperCase(), textPosition, <?php echo $_GET['h']; ?> - 60);
 	};
-	imageObj.src = 'http://localhost/internal/image.php?<?php echo $_GET['src']; ?>';
+	imageObj.src = "http://localhost/internal/bookmarklet/image.php?src=<?php echo $_GET['src']; ?>&w=<?php echo $_GET['w']; ?>&h=<?php echo $_GET['h']; ?>";
 
 
 
